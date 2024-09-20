@@ -1,11 +1,16 @@
-import React from 'react';
 import './App.css';
+import { FlightInfo } from './components/FlightInfo';
+import { myFlight } from './sample_flight-info';
 
 function App() {
+
   return (
-    <div>
+    <>
+     <div>
      Hello Airlines!
     </div>
+    <FlightInfo flight={myFlight}/>
+    </>
   );
 }
 
