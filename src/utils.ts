@@ -1,32 +1,32 @@
 export interface ExtractedFlightData {
-    'carrier': string,
-    'price': number,
-    'departureCity': string,
-    'departureAirport': {
-        'caption': string,
-        'uid': string,
-    },
-    'arrivalCity': string,
-    'arrivalAirport': {
-        'caption': string,
-        'uid': string,
-    },
+        'carrier': string,
+        'price': number,
+        'departureCity': string,
+        'departureAirport': {
+            'caption': string,
+            'uid': string,
+        },
+        'arrivalCity': string,
+        'arrivalAirport': {
+            'caption': string,
+            'uid': string,
+        },
 }
 
 export function extractFlightData(data: any): ExtractedFlightData {
     let result: ExtractedFlightData = {
-        carrier: '',
-        price: 0,
-        departureCity: '',
-        departureAirport: {
-            caption: '',
-            uid: '',
-        },
-        arrivalCity: '',
-        arrivalAirport: {
-            caption: '',
-            uid: ''
-        }
+            carrier: '',
+            price: 0,
+            departureCity: '',
+            departureAirport: {
+                caption: '',
+                uid: '',
+            },
+            arrivalCity: '',
+            arrivalAirport: {
+                caption: '',
+                uid: ''
+            }
     };
 
     result.carrier = data.flight.carrier.caption;
