@@ -15,9 +15,6 @@ function App() {
 
   return (
     <>
-     <div>
-     Hello Airlines!
-    </div>
     <FlightInfo flight={flight}/>
     </>
   );
