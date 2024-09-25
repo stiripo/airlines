@@ -1,23 +1,12 @@
+import { Leg } from "./components/FlightLeg";
+
 export interface ExtractedFlightData {
     'carrier': string,
     'price': {
         'amount': number,
         'currency': string,
     },
-    'departureCity': string,
-    'departureAirport': {
-        'caption': string,
-        'uid': string,
-    },
-    'arrivalCity': string,
-    'arrivalAirport': {
-        'caption': string,
-        'uid': string,
-    },
-    'departureDate': Date,
-    'duration': number,
-    'arrivalDate': Date,
-    'stops': number,
+    'legs': Leg[],
 }
 
 export function extractFlightData(data: any): ExtractedFlightData {
@@ -27,41 +16,66 @@ export function extractFlightData(data: any): ExtractedFlightData {
             amount: 0,
             currency: '',
         },
-        departureCity: '',
-        departureAirport: {
-            caption: '',
-            uid: '',
-        },
-        arrivalCity: '',
-        arrivalAirport: {
-            caption: '',
-            uid: ''
-        },
-        departureDate: new Date(),
-        duration: 0,
-        arrivalDate: new Date(),
-        stops: 0,
+        legs: [
+            {
+                departureCity: '',
+                departureAirport: {
+                    caption: '',
+                    uid: '',
+                },
+                arrivalCity: '',
+                arrivalAirport: {
+                    caption: '',
+                    uid: ''
+                },
+                departureDate: new Date(),
+                duration: 0,
+                arrivalDate: new Date(),
+                stops: 0,
+                airline: ' ',
+            },
+            {
+                departureCity: '',
+                departureAirport: {
+                    caption: '',
+                    uid: '',
+                },
+                arrivalCity: '',
+                arrivalAirport: {
+                    caption: '',
+                    uid: ''
+                },
+                departureDate: new Date(),
+                duration: 0,
+                arrivalDate: new Date(),
+                stops: 0,
+                airline: ' ',
+            }
+        ],
     };
 
     result.carrier = data.flight.carrier.caption;
     result.price.amount = data.flight.price.total.amount;
     result.price.currency = data.flight.price.total.currency;
 
-    let outboundSegments = data.flight.legs[0].segments;
-    result.departureCity = outboundSegments[0].departureCity.caption;
-    result.departureAirport = {
-        'caption': outboundSegments[0].departureAirport.caption,
-        'uid': outboundSegments[0].departureAirport.uid,
-    };
+    for (let i = 0; i < 2; i++) {
+        let segments = data.flight.legs[i].segments;
+        result.legs[i].departureCity = segments[0].departureCity.caption;
+        result.legs[i].departureAirport = {
+            'caption': segments[0].departureAirport.caption,
+            'uid': segments[0].departureAirport.uid,
+        };
 
-    result.arrivalCity = outboundSegments[outboundSegments.length - 1].arrivalCity.caption;
-    result.arrivalAirport = {
-        'caption': outboundSegments[outboundSegments.length - 1].arrivalAirport.caption,
-        'uid': outboundSegments[outboundSegments.length - 1].arrivalAirport.uid,
-    };
-    result.departureDate = new Date(outboundSegments[0].departureDate);
-    result.duration = data.flight.legs[0].duration;
-    result.arrivalDate = new Date(outboundSegments[outboundSegments.length - 1].arrivalDate);
-    result.stops = data.flight.legs[0].segments.length - 1;
+        result.legs[i].arrivalCity = segments[segments.length - 1].arrivalCity.caption;
+        result.legs[i].arrivalAirport = {
+            'caption': segments[segments.length - 1].arrivalAirport.caption,
+            'uid': segments[segments.length - 1].arrivalAirport.uid,
+        };
+        result.legs[i].departureDate = new Date(segments[0].departureDate);
+        result.legs[i].duration = data.flight.legs[i].duration;
+        result.legs[i].arrivalDate = new Date(segments[segments.length - 1].arrivalDate);
+        result.legs[i].stops = data.flight.legs[i].segments.length - 1;
+        result.legs[i].airline = data.flight.legs[i].segments[i].airline.caption;
+    }
     return result;
 }

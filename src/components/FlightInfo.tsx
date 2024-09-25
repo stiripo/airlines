@@ -1,11 +1,13 @@
 import { ExtractedFlightData } from "../utils";
-import { FlightDate } from "./FlightDate";
+import { FlightLeg } from "./FlightLeg";
 
 interface Props {
     flight: ExtractedFlightData,
 }
 
 export function FlightInfo({ flight }: Props) {
+    let outbound = flight.legs[0];
+    let inbound = flight.legs[1];
     return (
         <>
             <div>
@@ -13,18 +15,11 @@ export function FlightInfo({ flight }: Props) {
                 <div>{flight.price.amount} {flight.price.currency}</div>
                 <div>Стоимость для одного взрослого пассажира</div>
             </div>
-            <div>
-                <div>{flight.departureCity}, {flight.departureAirport.caption} <span>({flight.departureAirport.uid})</span></div>
-                <div>{flight.arrivalCity}, {flight.arrivalAirport.caption} <span>({flight.arrivalAirport.uid})</span></div>
-            </div>
-            <div>
-                <FlightDate date={flight.departureDate} />
-                <div>{flight.duration / 60}</div>
-                <FlightDate date={flight.arrivalDate} />
-            </div>
-            <div>{flight.stops} пересадка</div>
-            <div>Рейс выполняет {flight.carrier}</div>
+            <FlightLeg leg={outbound}/>
+            <FlightLeg leg={inbound}/>
         </>
     )
 }
+
+
 
