@@ -1,9 +1,9 @@
-import { ExtractedFlightData } from "../utils"
+import { ExtractedFlightData } from "../utils";
+import { FlightDate } from "./FlightDate";
 
 interface Props {
-    flight: ExtractedFlightData
+    flight: ExtractedFlightData,
 }
-
 
 export function FlightInfo({ flight }: Props) {
     return (
@@ -18,9 +18,9 @@ export function FlightInfo({ flight }: Props) {
                 <div>{flight.arrivalCity}, {flight.arrivalAirport.caption} <span>({flight.arrivalAirport.uid})</span></div>
             </div>
             <div>
-                <div>{flight.departureDate.hours}:{flight.departureDate.minutes}{flight.departureDate.day}{flight.departureDate.month}{flight.departureDate.weekDay}</div>
+                <FlightDate date={flight.departureDate} />
                 <div>{flight.duration / 60}</div>
-                <div>{flight.arrivalDate}</div>
+                <FlightDate date={flight.arrivalDate} />
             </div>
             <div>{flight.stops} пересадка</div>
             <div>Рейс выполняет {flight.carrier}</div>

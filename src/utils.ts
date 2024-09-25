@@ -14,15 +14,9 @@ export interface ExtractedFlightData {
         'caption': string,
         'uid': string,
     },
-    'departureDate': {
-        'hours': number,
-        'minutes': number,
-        'day': number,
-        'month': number,
-        'weekDay': number,
-    },
+    'departureDate': Date,
     'duration': number,
-    'arrivalDate': string,
+    'arrivalDate': Date,
     'stops': number,
 }
 
@@ -43,15 +37,9 @@ export function extractFlightData(data: any): ExtractedFlightData {
             caption: '',
             uid: ''
         },
-        departureDate: {
-        hours: 0,
-        minutes: 0,
-        day: 0,
-        month: 0,
-        weekDay: 0,
-    },
+        departureDate: new Date(),
         duration: 0,
-        arrivalDate: ' ',
+        arrivalDate: new Date(),
         stops: 0,
     };
 
@@ -71,16 +59,9 @@ export function extractFlightData(data: any): ExtractedFlightData {
         'caption': outboundSegments[outboundSegments.length - 1].arrivalAirport.caption,
         'uid': outboundSegments[outboundSegments.length - 1].arrivalAirport.uid,
     };
-    let departureDate = new Date(outboundSegments[0].departureDate);
-    result.departureDate.hours = departureDate.getHours();
-    result.departureDate.minutes = departureDate.getMinutes();
-    result.departureDate.day = departureDate.getDate();
-    result.departureDate.month = departureDate.getMonth();
-    result.departureDate.weekDay = departureDate.getDay();
-
-
+    result.departureDate = new Date(outboundSegments[0].departureDate);
     result.duration = data.flight.legs[0].duration;
-    result.arrivalDate = outboundSegments[outboundSegments.length - 1].arrivalDate;
+    result.arrivalDate = new Date(outboundSegments[outboundSegments.length - 1].arrivalDate);
     result.stops = data.flight.legs[0].segments.length - 1;
     return result;
 }
