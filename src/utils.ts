@@ -1,13 +1,5 @@
-import { Leg } from "./components/FlightLeg";
+import { ExtractedFlightData } from "./types";
 
-export interface ExtractedFlightData {
-    'carrier': string,
-    'price': {
-        'amount': number,
-        'currency': string,
-    },
-    'legs': Leg[],
-}
 
 export function extractFlightData(data: any): ExtractedFlightData {
     let result: ExtractedFlightData = {

@@ -1,7 +1,5 @@
 
-export interface DateProp {
-    date: Date,
-}
+import { DateProp } from "../types";
 
 export function FlightDate({ date }: DateProp) {
     let hours = date.getHours();

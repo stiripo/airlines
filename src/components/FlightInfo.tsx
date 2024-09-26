@@ -1,9 +1,7 @@
-import { ExtractedFlightData } from "../utils";
-import { FlightLeg } from "./FlightLeg";
 
-interface Props {
-    flight: ExtractedFlightData,
-}
+import { FlightLeg } from "./FlightLeg";
+import { Props } from "../types";
+
 
 export function FlightInfo({ flight }: Props) {
     let outbound = flight.legs[0];
