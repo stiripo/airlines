@@ -1,0 +1,11 @@
+.date {
+    display: flex;
+}
+
+.time {
+    font-size: 18px;
+}
+
+.day {
+    color: #0087c9;
+}

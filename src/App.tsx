@@ -1,5 +1,5 @@
 import './App.css';
-import { FlightInfo } from './components/FlightInfo';
+import { FlightInfo } from './components/FlightInfo/FlightInfo';
 import { extractFlightData } from './utils';
 import { downloadedFlight } from './sample_flight-info';
 

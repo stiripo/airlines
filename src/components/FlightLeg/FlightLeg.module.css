@@ -1,0 +1,23 @@
+.route {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+}
+
+.date {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 5px;
+}
+
+.duration {
+    display: flex;
+}
+
+.stops {
+    color: rgb(255, 177, 104);
+}
+
+.airportShort {
+    color: #0087c9;
+}

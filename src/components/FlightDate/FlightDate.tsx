@@ -1,5 +1,7 @@
 
-import { DateProp } from "../types";
+import { DateProp } from "../../types";
+import styles from "./FlightDate.module.css";
+
 
 export function FlightDate({ date }: DateProp) {
     let hours = date.getHours();
@@ -8,11 +10,12 @@ export function FlightDate({ date }: DateProp) {
     let month = new Intl.DateTimeFormat("ru", { month: "short" }).format(date);
     let weekDay = new Intl.DateTimeFormat("ru", { weekday: "short" }).format(date);
     return (
-        <div>
-            {hours}:{minutes}
-            {day}
-            {month}
-            {weekDay}
-        </div>
+        <>
+            <div className={styles.date}>
+                <div className={styles.time}>{hours}:{minutes}</div>
+                <div className={styles.day}>{day} {month} {weekDay}
+                </div>
+            </div>
+        </>
     )
 }
