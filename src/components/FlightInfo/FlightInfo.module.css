@@ -16,4 +16,17 @@
 text-align: right;
 }
 
+.button {
+    background-color: rgb(255, 177, 104);
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 0px;
+}
+
+.button:hover {
+    background-color: #0087c9;
+}
+
 

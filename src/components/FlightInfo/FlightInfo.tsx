@@ -21,6 +21,7 @@ export function FlightInfo({ flight }: Props) {
                 <Divider/>
                 <FlightLeg leg={inbound} />
             </div>
+            <div role="button" className={styles.button}>ВЫБРАТЬ</div>
         </div>
     )
 }
