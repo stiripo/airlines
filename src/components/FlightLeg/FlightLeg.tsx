@@ -1,6 +1,5 @@
 import { LegProps } from "../../types";
 import { FlightDate } from "../FlightDate/FlightDate";
-import { Divider } from '@mui/material';
 import styles from './FlightLeg.module.css';
 
 
@@ -11,7 +10,7 @@ export function FlightLeg({ leg }: LegProps) {
                 <div>{leg.departureCity}, {leg.departureAirport.caption} <span className={styles.airportShort}>({leg.departureAirport.uid})</span></div>
                 <div>{leg.arrivalCity}, {leg.arrivalAirport.caption} <span>({leg.arrivalAirport.uid})</span></div>
             </div>
-            <Divider></Divider>
+            <hr className={styles.divider} />
             <div className={styles.date}>
                 <FlightDate date={leg.departureDate} />
                 <div className={styles.duration}>
@@ -20,11 +19,12 @@ export function FlightLeg({ leg }: LegProps) {
                 </div>
                 <FlightDate date={leg.arrivalDate} />
             </div>
-            <Divider variant="inset">
-                <div className={styles.stops}>{leg.stops} пересадка</div>
-            </Divider>
-            <div className={styles.operatedBy}>Рейс выполняет {leg.airline}</div>
-            <Divider/>
+            <div>
+                <div className={styles.connections_divider}>
+                    <span className={styles.stops}>{leg.stops} пересадка</span>
+                </div>
+            </div>
+            <div className={styles.operated_by}>Рейс выполняет {leg.airline}</div>
         </>
     )
 }

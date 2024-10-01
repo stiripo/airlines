@@ -1,4 +1,3 @@
-
 import { DateProp } from "../../types";
 import styles from "./FlightDate.module.css";
 
@@ -13,8 +12,7 @@ export function FlightDate({ date }: DateProp) {
         <>
             <div className={styles.date}>
                 <div className={styles.time}>{hours}:{minutes}</div>
-                <div className={styles.day}>{day} {month} {weekDay}
-                </div>
+                <div className={styles.day}>{day} {month} {weekDay}</div>
             </div>
         </>
     )
