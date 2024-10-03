@@ -1,6 +1,19 @@
 import { ExtractedFlightData } from "./types";
 
 
+ export const fetchFlightData = async () => {
+  const response = await fetch('flights.json');
+  if (!response.ok) {
+    console.log('Response not OK');
+    throw new Error(`There's been a problem fetching data`);
+  }
+  const data = await response.json();
+  const firstFlight = await data.result.flights[0];
+  console.log(await firstFlight);
+  return firstFlight;
+};
+
+
 export function extractFlightData(data: any): ExtractedFlightData {
     let result: ExtractedFlightData = {
         carrier: '',
