@@ -25,9 +25,11 @@ leg: Leg,
 
 export interface Props {
     flight: ExtractedFlightData,
+    key: string,
 }
 
 export interface ExtractedFlightData {
+    'flightToken': string,
     'carrier': string,
     'price': {
         'amount': number,

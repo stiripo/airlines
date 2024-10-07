@@ -8,7 +8,7 @@ export function FlightLeg({ leg }: LegProps) {
         <>
             <div className={styles.route}>
                 <div>{leg.departureCity}, {leg.departureAirport.caption} <span className={styles.airportShort}>({leg.departureAirport.uid})</span></div>
-                <div>{leg.arrivalCity}, {leg.arrivalAirport.caption} <span>({leg.arrivalAirport.uid})</span></div>
+                <div>{[leg.arrivalCity, leg.arrivalAirport.caption].filter(x => x).join(', ')} <span>({leg.arrivalAirport.uid})</span></div>
             </div>
             <hr className={styles.divider} />
             <div className={styles.date}>

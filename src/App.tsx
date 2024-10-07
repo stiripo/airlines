@@ -7,7 +7,7 @@ import { ExtractedFlightData } from './types';
 
 function App() {
 
-  const [data, setData] = useState({} as ExtractedFlightData);
+  const [data, setData] = useState([] as ExtractedFlightData[]);
 
   useEffect(() => {
     fetchFlightData().then(result => setData(extractFlightData(result)));
@@ -15,7 +15,9 @@ function App() {
 
   return (
     <>
-      {data.legs ?  <FlightInfo flight={data} /> : <div>Loading...</div>}
+      {data ?
+        data.map((item) => <FlightInfo key={item.flightToken} flight={item} />)
+        : <div>Loading...</div>}
     </>
   );
 }
