@@ -9,7 +9,7 @@ import { ExtractedFlightData } from "./types";
   }
   const data = await response.json();
   const firstFlight = await data.result.flights[0];
-  console.log(await firstFlight);
+//   console.log(await firstFlight);
   return firstFlight;
 };
 
