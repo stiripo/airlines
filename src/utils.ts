@@ -16,8 +16,6 @@ export const fetchFlightData = async () => {
     }
     const data = await response.json();
     const flightArr = await data.result.flights;
-    console.log(await flightArr);
-    console.log(typeof flightArr);
     return flightArr as any[];
 };
 
@@ -84,11 +82,6 @@ export function extractFlightData(data: any[]): ExtractedFlightData[] {
             };
 
             result.legs[i].arrivalCity = segments[segments.length - 1].arrivalCity?.caption;
-            // if (!segments[segments.length - 1].arrivalCity) {
-            //     console.log(item.flightToken);
-            //     console.log(segments[segments.length - 1]);
-            //     result.legs[i].arrivalCity = "XOXOXO"
-            // }
             result.legs[i].arrivalAirport = {
                 'caption': segments[segments.length - 1].arrivalAirport.caption,
                 'uid': segments[segments.length - 1].arrivalAirport.uid,
