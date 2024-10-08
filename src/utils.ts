@@ -8,6 +8,7 @@ export function addZeros(num: number) {
 }
 
 
+
 export const fetchFlightData = async () => {
     const response = await fetch('flights.json');
     if (!response.ok) {
