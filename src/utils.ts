@@ -1,5 +1,12 @@
 import { ExtractedFlightData } from "./types";
 
+export function addZeros(num: number) {
+    if (num < 10) {
+        return '0' + num;
+    }
+    return num;
+}
+
 
 export const fetchFlightData = async () => {
     const response = await fetch('flights.json');
