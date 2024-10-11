@@ -5,3 +5,8 @@
 .main {
     width: 100%;;
 }
+
+.sidePanel {
+    flex-basis: 22%;
+}
+

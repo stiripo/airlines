@@ -20,7 +20,7 @@ export interface Leg {
     'airline': string,
 }
 export interface LegProps {
-leg: Leg,
+    leg: Leg,
 }
 
 export interface Props {
@@ -30,10 +30,23 @@ export interface Props {
 
 export interface ExtractedFlightData {
     'flightToken': string,
-    'carrier': string,
+    'carrier': {
+        'uid': string,
+        'caption': string,
+    },
     'price': {
         'amount': number,
         'currency': string,
     },
     'legs': Leg[],
 }
+
+export interface FilterState {
+    'direct': boolean,
+    'oneConnection': boolean,
+    'priceFrom'?: number,
+    'priceTo'?: number,
+    'airlines'?: string,
+    'sort'?: string,
+}
+

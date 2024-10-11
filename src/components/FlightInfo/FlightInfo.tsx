@@ -9,7 +9,7 @@ export function FlightInfo({ flight }: Props) {
     return (
         <div className={styles.details_container}>
             <div className={styles.summary}>
-                <div >{flight.carrier}</div>
+                <div >{flight.carrier.caption}</div>
                 <div className={styles.price}>
                     <div>{flight.price.amount} {flight.price.currency}</div>
                     <div className={styles.price_caption}>Стоимость для одного взрослого пассажира</div>

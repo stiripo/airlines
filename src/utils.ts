@@ -26,7 +26,10 @@ export function extractFlightData(data: any[]): ExtractedFlightData[] {
     for (let item of data) {
         let result: ExtractedFlightData = {
             flightToken: '',
-            carrier: '',
+            carrier: {
+                uid: '',
+                caption: '',
+            },
             price: {
                 amount: 0,
                 currency: '',
@@ -70,7 +73,8 @@ export function extractFlightData(data: any[]): ExtractedFlightData[] {
         };
 
         result.flightToken = item.flightToken;
-        result.carrier = item.flight.carrier.caption;
+        result.carrier.uid = item.flight.carrier.uid;
+        result.carrier.caption = item.flight.carrier.caption;
         result.price.amount = item.flight.price.total.amount;
         result.price.currency = item.flight.price.total.currency;
 
