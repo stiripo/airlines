@@ -20,3 +20,20 @@
     position: sticky;
     top: 0;
 }
+
+.checkbox {
+    display: block;
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    text-indent: -26px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.checkbox input {
+    margin-right: 10px;
+}

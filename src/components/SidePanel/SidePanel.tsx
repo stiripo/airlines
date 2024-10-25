@@ -110,7 +110,7 @@ export function SidePanel({ setFilter, filterConnections, filterAirlines, flight
                 <div>
                     {[...entries].map(([key, value]: [string, ExtractedFlightData]) =>
                         <div key={key}>
-                            <label>
+                            <label className={styles.checkbox}>
                                 <input
                                     type="checkbox"
                                     name='airlines'
