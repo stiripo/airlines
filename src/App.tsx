@@ -42,7 +42,6 @@ function App() {
       filteredData = filteredData.filter((flight: ExtractedFlightData) => flight.price.amount <= filterSet.priceTo!);
     }
     if (airlineFilters.size > 0) {
-      console.log(`Applying airline filtering`);
       filteredData = filteredData.filter((flight: ExtractedFlightData) => airlineFilters.has(flight.carrier.uid));
     }
     if (filterSet.sort === 'lowToHigh') {
@@ -59,7 +58,6 @@ function App() {
   }
 
   function handleFiltering(filter: any) {
-    console.log(`Adding filter ${filter} to the state`);
     const filterSet = { ...filters, ...filter };
     setFilters(filterSet);
   }
@@ -76,14 +74,10 @@ function App() {
       let updated = airlineFilters.add(option);
       setAirlineFilters((prevSet) =>
        new Set([...airlineFilters.values()]));
-      //  console.log(updated);
-      //  console.log(updated.size);
     } else {
       let updated = airlineFilters.delete(option);
       setAirlineFilters((prevSet) =>
         new Set([...airlineFilters.values()]));
-        // console.log(airlineFilters);
-        // console.log(airlineFilters.size);
     }
   }
 

@@ -4,6 +4,15 @@ import styles from './FlightLeg.module.css';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
 export function FlightLeg({ leg }: LegProps) {
+
+    let connections;
+    if (leg.stops > 0) {
+        connections = (
+            <div className={styles.connections_divider}>
+                    <span className={styles.stops}>{leg.stops} пересадка</span>
+                </div>
+        )
+    }
     return (
         <>
             <div className={styles.route}>
@@ -21,9 +30,7 @@ export function FlightLeg({ leg }: LegProps) {
                 <FlightDate date={leg.arrivalDate} />
             </div>
             <div>
-                <div className={styles.connections_divider}>
-                    <span className={styles.stops}>{leg.stops} пересадка</span>
-                </div>
+                {connections}
             </div>
             <div className={styles.operated_by}>Рейс выполняет {leg.airline}</div>
         </>
