@@ -1,7 +1,22 @@
 .form {
-    padding: 15px;
+    padding: 10px;
 }
 
 .legend {
-    font-weight: bold;
+    font-weight: 600;
+    padding-bottom: 10px;
+}
+
+.priceRange {
+    display: flex;
+   margin-bottom: 10px;
+   padding-bottom: 5px;
+   gap: 10px;
+}
+
+.panel {
+    height: 100vh;
+    overflow: scroll;
+    position: sticky;
+    top: 0;
 }

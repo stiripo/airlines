@@ -8,5 +8,6 @@
 
 .sidePanel {
     flex-basis: 22%;
+    border-right: solid 1px grey;
 }
 

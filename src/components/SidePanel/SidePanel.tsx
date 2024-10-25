@@ -19,7 +19,7 @@ export function SidePanel({ setFilter, filterConnections, filterAirlines, flight
     // console.log(entries);
 
     return (
-        <>
+        <div className={styles.panel}>
             <form className={styles.form}>
                 <div>
                     <div className={styles.legend}>Сортировать</div>
@@ -30,7 +30,7 @@ export function SidePanel({ setFilter, filterConnections, filterAirlines, flight
                             id="lowToHigh"
                             value='lowToHigh'
                             onChange={(event) => setFilter({ sort: event.target.value })} />
-                        по возрастанию цены
+                        - по возрастанию цены
                     </label>
                 </div>
                 <div>
@@ -41,7 +41,7 @@ export function SidePanel({ setFilter, filterConnections, filterAirlines, flight
                             id="highToLow"
                             value='highToLow'
                             onChange={(event) => setFilter({ sort: event.target.value })} />
-                        по убыванию цены
+                        - по убыванию цены
                     </label>
                 </div>
                 <div>
@@ -52,7 +52,7 @@ export function SidePanel({ setFilter, filterConnections, filterAirlines, flight
                             id="duration"
                             value='duration'
                             onChange={(event) => setFilter({ sort: event.target.value })} />
-                        по времени в пути
+                        - по времени в пути
                     </label>
                 </div>
             </form>
@@ -70,7 +70,7 @@ export function SidePanel({ setFilter, filterConnections, filterAirlines, flight
                             onChange={(event) =>
                                 filterConnections('oneConnection')
                             } />
-                        1 пересадка
+                        - 1 пересадка
                     </label>
                 </div>
                 <div>
@@ -83,22 +83,26 @@ export function SidePanel({ setFilter, filterConnections, filterAirlines, flight
                             onChange={(event) => {
                                 filterConnections('direct')
                             }} />
-                        без пересадок
+                        - без пересадок
                     </label>
                 </div>
             </form>
 
             <form className={styles.form}>
                 <div className={styles.legend}>Цена</div>
-                <div>от</div>
-                <input
-                    type='number'
-                    onChange={(event) => setFilter({ priceFrom: Number(event.target.value) })}
-                />
-                <div>до</div>
-                <input
-                    type='number'
-                    onChange={(event) => setFilter({ priceTo: Number(event.target.value) })} />
+                <div className={styles.priceRange}>
+                    <div>от</div>
+                    <input
+                        type='number'
+                        onChange={(event) => setFilter({ priceFrom: Number(event.target.value) })}
+                    />
+                </div>
+                <div className={styles.priceRange}>
+                    <div>до</div>
+                    <input
+                        type='number'
+                        onChange={(event) => setFilter({ priceTo: Number(event.target.value) })} />
+                </div>
             </form>
 
             <form className={styles.form}>
@@ -112,14 +116,14 @@ export function SidePanel({ setFilter, filterConnections, filterAirlines, flight
                                     name='airlines'
                                     id='airlines'
                                     value={key}
-                                    onChange={(event) => filterAirlines(key) }/>
+                                    onChange={(event) => filterAirlines(key)} />
                                 {value.carrier.caption} от {value.price.amount} р.
                             </label>
                         </div>)}
                 </div>
 
             </form>
-        </>
+        </div>
 
     )
 }
