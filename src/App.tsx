@@ -1,6 +1,6 @@
 import './App.css';
 import { FlightInfo } from './components/FlightInfo/FlightInfo';
-import { extractFlightData, fetchFlightData } from './utils';
+import { extractFlightData, fetchFlightData, showSlice } from './utils';
 import { useState, useEffect, useMemo } from 'react';
 import { ExtractedFlightData, FilterState } from './types';
 import { SidePanel } from './components/SidePanel/SidePanel';
@@ -15,6 +15,7 @@ function App() {
     'oneConnection': false,
   });
   const [airlineFilters, setAirlineFilters] = useState<Set<string>>(new Set());
+  const [elementsToShow, setElementsToShow] = useState<number>(2);
 
   useEffect(() => {
     fetchFlightData().then((result) => {
@@ -71,11 +72,11 @@ function App() {
 
   function toggleAirlines(option: string) {
     if (!airlineFilters.has(option)) {
-      let updated = airlineFilters.add(option);
+     airlineFilters.add(option);
       setAirlineFilters((prevSet) =>
-       new Set([...airlineFilters.values()]));
+        new Set([...airlineFilters.values()]));
     } else {
-      let updated = airlineFilters.delete(option);
+      airlineFilters.delete(option);
       setAirlineFilters((prevSet) =>
         new Set([...airlineFilters.values()]));
     }
@@ -93,8 +94,12 @@ function App() {
       </div>
       <div className='main'>
         {renderedData ?
-          renderedData.map((item) => <FlightInfo key={item.flightToken} flight={item} />)
+          showSlice(renderedData, elementsToShow).map((item) => <FlightInfo key={item.flightToken} flight={item} />)
           : <div>Loading...</div>}
+        <button
+        className='showMoreBtn'
+        onClick={() => setElementsToShow((prev) => prev + 1)}
+        >Показать еще</button>
       </div>
     </div>
   );

@@ -7,8 +7,6 @@ export function addZeros(num: number) {
     return num;
 }
 
-
-
 export const fetchFlightData = async () => {
     const response = await fetch('flights.json');
     if (!response.ok) {
@@ -16,10 +14,9 @@ export const fetchFlightData = async () => {
         throw new Error(`There's been a problem fetching data`);
     }
     const data = await response.json();
-    const flightArr = await data.result.flights;
+    const flightArr = await (data.result.flights);
     return flightArr as any[];
 };
-
 
 export function extractFlightData(data: any[]): ExtractedFlightData[] {
     let list = [];
@@ -100,4 +97,8 @@ export function extractFlightData(data: any[]): ExtractedFlightData[] {
         list.push(result);
     }
     return list;
+}
+
+export function showSlice(data: ExtractedFlightData[], num: number) {
+    return data.slice(0, num);
 }

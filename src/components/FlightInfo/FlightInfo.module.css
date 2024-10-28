@@ -35,6 +35,7 @@
 }
 
 .legsDivider {
+    margin: 0px;
     border-color: #0087c9;
     border-width: 1px;
     padding: 0px;
