@@ -1,9 +1,9 @@
 import { FlightLeg } from "../FlightLeg/FlightLeg";
-import { Props } from "../../types";
+import { FlightProps } from "../../types";
 import styles from './FlightInfo.module.css';
 
 
-export function FlightInfo({ flight }: Props) {
+export function FlightInfo({ flight }: FlightProps) {
     let outbound = flight.legs[0];
     let inbound = flight.legs[1];
     return (

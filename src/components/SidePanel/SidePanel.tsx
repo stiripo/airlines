@@ -1,8 +1,8 @@
 import styles from './SidePanel.module.css';
-import { ExtractedFlightData } from '../../types';
+import { ExtractedFlightData, SidePanelProps } from '../../types';
 
-export function SidePanel({ setFilter, filterConnections, filterAirlines, flights }: any) {
 
+export function SidePanel({ setFilter, filterConnections, filterAirlines, flights }: SidePanelProps) {
 
     let bestAirlineOffers: Map<string, ExtractedFlightData> = new Map();
     for (let item of flights) {

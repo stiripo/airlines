@@ -23,7 +23,7 @@ export interface LegProps {
     leg: Leg,
 }
 
-export interface Props {
+export interface FlightProps {
     flight: ExtractedFlightData,
     key: string,
 }
@@ -49,4 +49,12 @@ export interface FilterState {
     'airlines'?: string,
     'sort'?: string,
 }
+
+export interface SidePanelProps {
+    setFilter: React.Dispatch<React.SetStateAction<object>>,
+    filterConnections: (option: 'direct' | 'oneConnection') => void,
+    filterAirlines: (opton: string) => void,
+    flights: ExtractedFlightData[],
+}
+
 

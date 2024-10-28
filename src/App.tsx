@@ -58,7 +58,7 @@ function App() {
     return filteredData;
   }
 
-  function handleFiltering(filter: any) {
+  function handleFiltering(filter: object) {
     const filterSet = { ...filters, ...filter };
     setFilters(filterSet);
   }

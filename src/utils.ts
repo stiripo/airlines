@@ -7,15 +7,21 @@ export function addZeros(num: number) {
     return num;
 }
 
-export const fetchFlightData = async () => {
-    const response = await fetch('flights.json');
-    if (!response.ok) {
-        console.log('Response not OK');
-        throw new Error(`There's been a problem fetching data`);
+export const fetchFlightData = async (): Promise<any> => {
+    try {
+        const response = await fetch('flights.json');
+        if (!response.ok) {
+            console.log('Response not OK');
+            throw new Error(`There's been a problem fetching data`);
+        }
+        const data: Record<string, any> = await response.json();
+        const flightArr: any[] = await (data.result.flights);
+        return flightArr;
+    } catch (error) {
+        if (error instanceof Error) {
+            console.log(error.message);
+          }
     }
-    const data = await response.json();
-    const flightArr = await (data.result.flights);
-    return flightArr as any[];
 };
 
 export function extractFlightData(data: any[]): ExtractedFlightData[] {
