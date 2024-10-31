@@ -24,37 +24,74 @@ function App() {
     });
   }, []);
 
-  const renderedData = useMemo(() => produceRenderData(data, filters, airlineFilters), [data, filters, airlineFilters]);
+  const flightsToDisplay = useMemo(() => selectFlightsToDisplay(data, filters, airlineFilters), [data, filters, airlineFilters]);
+  const airlinesToDisplay = useMemo(() => selectAirlinesToDisplay(data, filters), [data, filters]);
 
-  function produceRenderData(data: ExtractedFlightData[], filterSet: FilterState, airlineFilters: Set<string>) {
-
-    let filteredData = data;
-
-    if (filterSet.oneConnection || filterSet.direct) {
-      filteredData = filteredData.filter((flight: ExtractedFlightData) =>
-        (filterSet.oneConnection && (flight.legs[0].stops === 1 || flight.legs[1].stops === 1)) ||
-        (filterSet.direct && (flight.legs[0].stops === 0 && flight.legs[1].stops === 0))
+  function filterByConnections(data: ExtractedFlightData[]) {
+    if (filters.oneConnection || filters.direct) {
+      return data.filter((flight: ExtractedFlightData) =>
+        (filters.oneConnection && (flight.legs[0].stops === 1 || flight.legs[1].stops === 1)) ||
+        (filters.direct && (flight.legs[0].stops === 0 && flight.legs[1].stops === 0))
       )
+    } else {
+      return data;
     }
-    if (filterSet.priceFrom) {
-      filteredData = filteredData.filter((flight: ExtractedFlightData) => flight.price.amount >= filterSet.priceFrom!);
+  }
+
+  function filterByPriceFrom(data: ExtractedFlightData[]) {
+    if (filters.priceFrom) {
+      return data.filter((flight: ExtractedFlightData) => flight.price.amount >= filters.priceFrom!);
+    } else {
+      return data;
     }
-    if (filterSet.priceTo) {
-      filteredData = filteredData.filter((flight: ExtractedFlightData) => flight.price.amount <= filterSet.priceTo!);
+  }
+
+  function filterByPriceTo(data: ExtractedFlightData[]) {
+    if (filters.priceTo) {
+      return data.filter((flight: ExtractedFlightData) => flight.price.amount <= filters.priceTo!);
+    } else {
+      return data;
     }
+  }
+
+  function filterByAirlines(data: ExtractedFlightData[]) {
     if (airlineFilters.size > 0) {
-      filteredData = filteredData.filter((flight: ExtractedFlightData) => airlineFilters.has(flight.carrier.uid));
+      return data.filter((flight: ExtractedFlightData): boolean => airlineFilters.has(flight.carrier.uid));
+    } else {
+      return data;
     }
-    if (filterSet.sort === 'lowToHigh') {
+  }
+
+  function sortFlights(data: ExtractedFlightData[]) {
+    let filteredData = data;
+    if (filters.sort === 'lowToHigh') {
       filteredData = [...filteredData].sort((a: ExtractedFlightData, b: ExtractedFlightData): number =>
         a.price.amount - b.price.amount);
-    } if (filterSet.sort === 'highToLow') {
+    } else if (filters.sort === 'highToLow') {
       filteredData = [...filteredData].sort((a: ExtractedFlightData, b: ExtractedFlightData): number =>
         b.price.amount - a.price.amount);
-    } if (filterSet.sort === 'duration') {
+    } else if (filters.sort === 'duration') {
       filteredData = [...filteredData].sort((a: ExtractedFlightData, b: ExtractedFlightData): number =>
         (a.legs[0].duration + a.legs[1].duration) - (b.legs[0].duration + b.legs[1].duration))
     }
+    return filteredData;
+  }
+
+  function selectFlightsToDisplay(data: ExtractedFlightData[], filterSet: FilterState, airlineFilters: Set<string>) {
+    let filteredData = data.slice();
+    filteredData = filterByConnections(filteredData);
+    filteredData = filterByPriceFrom(filteredData);
+    filteredData = filterByPriceTo(filteredData);
+    filteredData = filterByAirlines(filteredData);
+    filteredData = sortFlights(filteredData);
+    return filteredData;
+  }
+
+  function selectAirlinesToDisplay(data: ExtractedFlightData[], filterSet: FilterState) {
+    let filteredData = data;
+    filteredData = filterByConnections(filteredData);
+    filteredData = filterByPriceFrom(filteredData);
+    filteredData = filterByPriceTo(filteredData);
     return filteredData;
   }
 
@@ -72,7 +109,7 @@ function App() {
 
   function toggleAirlines(option: string) {
     if (!airlineFilters.has(option)) {
-     airlineFilters.add(option);
+      airlineFilters.add(option);
       setAirlineFilters((prevSet) =>
         new Set([...airlineFilters.values()]));
     } else {
@@ -89,16 +126,16 @@ function App() {
           setFilter={handleFiltering}
           filterConnections={toggleConnections}
           filterAirlines={toggleAirlines}
-          flights={data}
+          flights={airlinesToDisplay}
         />
       </div>
       <div className='main'>
-        {renderedData ?
-          showSlice(renderedData, elementsToShow).map((item) => <FlightInfo key={item.flightToken} flight={item} />)
+        {flightsToDisplay ?
+          showSlice(flightsToDisplay, elementsToShow).map((item) => <FlightInfo key={item.flightToken} flight={item} />)
           : <div>Loading...</div>}
         <button
-        className='showMoreBtn'
-        onClick={() => setElementsToShow((prev) => prev + 1)}
+          className='showMoreBtn'
+          onClick={() => setElementsToShow((prev) => prev + 1)}
         >Показать еще</button>
       </div>
     </div>

@@ -5,11 +5,13 @@ import { ExtractedFlightData, SidePanelProps } from '../../types';
 export function SidePanel({ setFilter, filterConnections, filterAirlines, flights }: SidePanelProps) {
 
     let bestAirlineOffers: Map<string, ExtractedFlightData> = new Map();
+    // console.log("-----");
+    // console.log(flights.slice(0,5));
     for (let item of flights) {
         if (!bestAirlineOffers.has(item.carrier.uid)) {
             bestAirlineOffers.set(item.carrier.uid, item);
         } else {
-            if ((bestAirlineOffers.get(item.carrier.uid)!.price.amount)! > item.price.amount) {
+            if ((bestAirlineOffers.get(item.carrier.uid)!.price.amount)! >= item.price.amount) {
                 bestAirlineOffers.set(item.carrier.uid, item);
             }
         }
