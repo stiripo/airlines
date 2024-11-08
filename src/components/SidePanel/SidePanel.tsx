@@ -5,20 +5,17 @@ import { ExtractedFlightData, SidePanelProps } from '../../types';
 export function SidePanel({ setFilter, filterConnections, filterAirlines, flights }: SidePanelProps) {
 
     let bestAirlineOffers: Map<string, ExtractedFlightData> = new Map();
-    // console.log("-----");
-    // console.log(flights.slice(0,5));
     for (let item of flights) {
         if (!bestAirlineOffers.has(item.carrier.uid)) {
             bestAirlineOffers.set(item.carrier.uid, item);
         } else {
-            if ((bestAirlineOffers.get(item.carrier.uid)!.price.amount)! >= item.price.amount) {
+            if ((bestAirlineOffers.get(item.carrier.uid)!.price.amount)! > item.price.amount) {
                 bestAirlineOffers.set(item.carrier.uid, item);
             }
         }
     };
 
     const entries = bestAirlineOffers.entries();
-    // console.log(entries);
 
     return (
         <div className={styles.panel}>
@@ -68,7 +65,6 @@ export function SidePanel({ setFilter, filterConnections, filterAirlines, flight
                             name="stops"
                             id="1"
                             value='1'
-                            // checked={isChecked}
                             onChange={(event) =>
                                 filterConnections('oneConnection')
                             } />
@@ -123,7 +119,6 @@ export function SidePanel({ setFilter, filterConnections, filterAirlines, flight
                             </label>
                         </div>)}
                 </div>
-
             </form>
         </div>
 
